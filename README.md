@@ -38,41 +38,19 @@ ENV NODE_OPTIONS="--openssl-legacy-provider"
 
 - PIXI v6
 - GSAP 3
-- Howler
 - Webpack
 
 # Game Behavior
 
 - Click spin button to see next result.
 
-  - Clicking on the spin button will deduct a random bet from [1, 2, 3, 5, 10], player balance will reduce accordingly. ( can be seen under the logs )
+  - Clicking on the spin button will deduct a random bet from [10,20,30.......,100], player balance will reduce accordingly. ( can be seen under the logs )
   - As the spin result the new reel stop positions will be displayed on the bottom left of the screen, symbols on the reel will change accordingly.
 
   - In case of user win, winning details will display below the reel area ( replacing good luck msg ).
   - A quick rollup will play to the total win amount and will be placed right below the balance meter.
   - On roll up complete, balnce meter will update.
 
-- We also have a bonus button on the main screen
-
-  -On clicking the bonus button, it will add a transition and take us to the wheel screen.
-  -On this screen we have a start button, clicking on it will make the wheel spin.
-  -Weight table for the wheel is defined inside model.ts, using it a win will be decided and the corrosponding slice will land on the wheel pointer.
-
-  - Celebration
-    To celebrate the wheel win, a popup will appear right over the wheel.
-    Amount on the wheel will countup to the slice value. at the same time coin shower will happen from top to bottom.
-    At the end of the countup, balance will be updated and at the end of the coin shower another transition screen will take you back to the main screen.
-
-- Debug panel :  
-  To inject the cheat the wheel bonus, click on the wheel slice that you want to win and start the wheel.
 
 - Play it here
-
-  https://ctech-wheel-bonus.netlify.app/
-
-- References
-
-  Used one of my own portfolio app as boiler-plate :
-
-  Github : https://github.com/CTech-Abhi/slot-machine-test  
-  deployed at : https://ctech-abhi-slotdemo.netlify.app/
+    LINK TO BE ADDED
