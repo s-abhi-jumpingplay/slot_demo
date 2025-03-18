@@ -83,7 +83,7 @@ export class Model {
   private reelStops: number[] = [18, 9, 2];
   private totalWin: number = 0;
 
-  private playerBalance: number = 180;
+  private playerBalance: number = 1000;
   private possibleBets: number[] = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
   private selectedBet: number = 10;
   private currentBetIndex: number = 1;

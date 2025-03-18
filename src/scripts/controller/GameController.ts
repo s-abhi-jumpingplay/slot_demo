@@ -17,8 +17,6 @@ export interface IButtonView {
 
 export class GameController extends PIXI.Container {
   private gameData: Model;
-  private transitionLayer: PIXI.Sprite = new PIXI.Sprite();
-  // private gameState: string = constants.GAMESTATE.INIT;
   private gameButtons: PIXI.Sprite[] = [];
   private mainScreen: MainScreen;
   private betPanel: OverlayPanel;
@@ -54,15 +52,6 @@ export class GameController extends PIXI.Container {
     this.gameButtons.push(this.createSpinButton());
     this.gameButtons.push(this.createBetUpButton());
     this.gameButtons.push(this.createBetDownButton());
-    //this.updateScreenState();
-
-    this.transitionLayer.destroy();
-    this.transitionLayer = new PIXI.Sprite(PIXI.Texture.WHITE);
-    this.transitionLayer.width = constants.viewport.width;
-    this.transitionLayer.height = constants.viewport.height;
-
-    this.transitionLayer.alpha = 0;
-    this.addChild(this.transitionLayer);
   }
 
   private addEventListeners() {
@@ -99,8 +88,6 @@ export class GameController extends PIXI.Container {
       console.log("Animating  ::  ", symbolMap[1], reel.children)
       const sprite = reel.getChildAt(parseInt(symbolMap[1]));
       gsap.fromTo(sprite, { alpha: 0 }, { alpha: 1, duration: 1, yoyo: true, repeat: -1 });
-
-      // gsap.killTweensOf(sprite);
     }
   }
 

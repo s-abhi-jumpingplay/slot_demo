@@ -15,6 +15,7 @@ export class MainScreen extends PIXI.Container {
   private spinMechanics: BaseSpin[] = [];
   private symbolSize = constants.SYMBOL_SIZE;
   private eventDispature: EventDispatcher;
+  private reelMask: PIXI.Sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
 
   constructor() {
     super();
@@ -25,13 +26,23 @@ export class MainScreen extends PIXI.Container {
 
   public init(): void {
     let initReels = this.gameData.stopSymbols;
+    this.reelMask.width = constants.SYMBOL_SIZE*3;
+    this.reelMask.height = constants.SYMBOL_SIZE*3*0.6;
+
+    this.reelMask.x = this.reelStartPosition_x;
+    this.reelMask.y = this.reelStartPosition_y;
+
+    this.addChild(this.reelMask);
+
     for (let i = 0; i < initReels.length; i++) {
       let newReel = new Reel(i);
       // console.log("initReel ", initReels[i]);
       newReel.fillWithSymbols(initReels[i]);
       newReel.scale.set(1, 0.6);
+      newReel.addRandomSymbolOnTop();
       this.addChild(newReel);
 
+      newReel.mask = this.reelMask;
       newReel.x = this.reelStartPosition_x + i * this.symbolSize;
       newReel.y = this.reelStartPosition_y;
       this.reels.push(newReel);
@@ -53,7 +64,6 @@ export class MainScreen extends PIXI.Container {
     }
     gsap.delayedCall(1.2, () => {
       this.eventDispature.dispatchEvent("ALL_REELS_STOPPED");
-      //this.eventDispature.dispatchEvent("ENABLE_BUTTONS");
     });
   }
 

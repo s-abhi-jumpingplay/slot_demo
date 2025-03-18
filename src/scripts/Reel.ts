@@ -76,6 +76,16 @@ export class Reel extends PIXI.Container {
     return this.reelContainer.getChildAt(index + 1);
   }
 
+  public addRandomSymbolOnTop(): void {
+    const randomSymbolTexture = this.randomSymbolName;
+
+    let sprite = PIXI.Sprite.from(randomSymbolTexture);
+    sprite.x = (this.symbolHeight - sprite.width) / 2;
+    sprite.y = -this.symbolHeight;
+
+    this.reelContainer.addChildAt(sprite, 0);
+  }
+
   public set visibleReel(symbols: string[]) {
     this.visibleReelSymbols = symbols;
     this.visibleReelSymbols.unshift(
@@ -86,16 +96,11 @@ export class Reel extends PIXI.Container {
     this.reelContainer.y = -this.symbolHeight;
   }
 
-  /* private fillWithSymbols(symbols: string[]) {
-    this.emptyReel();
-    this.fillSymbols(symbols);
-  } */
-
   public getReelContainer(): PIXI.Container {
     return this.reelContainer;
   }
 
-  private get randomSymbolName() {
+  public get randomSymbolName() {
     let name = "";
     let randomNumber = Math.floor(Math.random() * 11);
     if (randomNumber < 5) {
@@ -113,7 +118,7 @@ export class Reel extends PIXI.Container {
     return name;
   }
 
-  public updateReel(symName: string = ""){//}, skipPositionAdjustment:boolean = false) {
+  public updateReel(symName: string = "") {
     this.visibleReelSymbols.pop();
     let nextSymbol = symName || this.randomSymbolName;
 
@@ -123,17 +128,13 @@ export class Reel extends PIXI.Container {
     this.addNewSymbol();
     this.moveSymbolsToNextPosition();
 
-    this.reelContainer.y = -this.symbolHeight*0.6;
-    /* if(!skipPositionAdjustment){
-    this.reelContainer.y = -this.symbolHeight*0.6;
-    } else {
-      this.reelContainer.y = 30;//this.symbolHeight*0.6;
-    } */
+    this.reelContainer.y = 0;
   }
 
   private addNewSymbol() {
     let sprite = PIXI.Sprite.from(this.visibleReelSymbols[0]);
     sprite.x = (this.symbolHeight - sprite.width) / 2;
+    sprite.y = -this.symbolHeight;
 
     this.reelContainer.addChildAt(sprite, 0);
   }
@@ -141,7 +142,7 @@ export class Reel extends PIXI.Container {
   private moveSymbolsToNextPosition() {
     for (let i = 0; i < this.reelContainer.children.length; i++) {
       let child: PIXI.Sprite = this.reelContainer.getChildAt(i) as PIXI.Sprite;
-      child.y = this.symbolHeight * i + (this.symHeight - child.height) / 2;
+      child.y = this.symbolHeight * (i-1) + (this.symHeight - child.height) / 2;
     }
   }
 }
