@@ -50,6 +50,10 @@ ENV NODE_OPTIONS="--openssl-legacy-provider"
   - In case of user win, winning details will display below the reel area ( replacing good luck msg ).
   - A quick rollup will play to the total win amount and will be placed right below the balance meter.
   - On roll up complete, balnce meter will update.
+  - All the winning symbols start playing fade-in animation in a cyclic manner.
+
+  - Handle insufficient balance, message is shown in place of Good Luck! message
+  - Once the bet is reduced below the balance, player can place a bet again.
 
 
 - Play it here
