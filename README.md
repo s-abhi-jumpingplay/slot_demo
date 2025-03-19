@@ -52,9 +52,9 @@ ENV NODE_OPTIONS="--openssl-legacy-provider"
   - On roll up complete, balnce meter will update.
   - All the winning symbols start playing fade-in animation in a cyclic manner.
 
-  - Handle insufficient balance, message is shown in place of Good Luck! message
+  - Player will not be able to bet in case of insufficient balance and will be notified by "Insufficent balance" message in place of Good Luck! message
   - Once the bet is reduced below the balance, player can place a bet again.
 
 
 - Play it here
-    LINK TO BE ADDED
+    3x3-slot-demo.netlify.app
