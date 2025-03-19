@@ -1,7 +1,6 @@
 # slot-machine-test
 
 Its a demo for H5 slot game development using PIXI.JS,
-A wheel bonus has been introduced to complete the demo
 
 # Developer
 
@@ -49,15 +48,14 @@ ENV NODE_OPTIONS="--openssl-legacy-provider"
 
   - In case of user win, winning details will display below the reel area ( replacing good luck msg ).
   - A quick rollup will play to the total win amount and will be placed right below the balance meter.
-  - On roll up complete, balnce meter will update.
+  - On roll up complete, balance meter will update.
   - All the winning symbols start playing fade-in animation in a cyclic manner.
 
   - Player will not be able to bet in case of insufficient balance and will be notified by "Insufficent balance" message in place of Good Luck! message
   - Once the bet is reduced below the balance, player can place a bet again.
 
-  - Win Celebration
-  - Coin shower rains from top to bottom in case of a line win.
+  - Win Celebration : Coin shower rains from top to bottom in case of a line win.
 
 
-- Play it here
+- Play it here :
     3x3-slot-demo.netlify.app
