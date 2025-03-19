@@ -1,6 +1,6 @@
 import { EventDispatcher } from './../EventDispatcher';
 import * as PIXI from "pixi.js";
-import { gsap } from "gsap";
+import { gsap, Linear } from "gsap";
 import { Model } from "../dataStore/Model";
 import { MainScreen } from "../scene/MainScreen";
 import { OverlayPanel } from "../scene/OverlayPanel";
@@ -21,6 +21,8 @@ export class GameController extends PIXI.Container {
   private mainScreen: MainScreen;
   private betPanel: OverlayPanel;
   private eventDispature: EventDispatcher;
+  private animatedCoinPool: PIXI.AnimatedSprite[] = [];
+  private coinShowerIntervalId: ReturnType<typeof setInterval> | undefined;
 
   constructor() {
     super();
@@ -46,12 +48,30 @@ export class GameController extends PIXI.Container {
 
   public init() {
     this.setupUI();
-
+    this.createCoinPool();
     this.addChild(this.mainScreen);
 
     this.gameButtons.push(this.createSpinButton());
     this.gameButtons.push(this.createBetUpButton());
     this.gameButtons.push(this.createBetDownButton());
+  }
+
+  private createCoinPool() {
+    let totalCoins = constants.CELEBRATION.COIN_POOL_SIZE;
+    for (let i = 0; i < totalCoins; i++) {
+      let coinTexture = PIXI.Loader.shared.resources.coinAnim.spritesheet;
+      let animatedCoin = undefined;
+      if (coinTexture) {
+        animatedCoin = new PIXI.AnimatedSprite(
+          coinTexture.animations.coin_anim
+        );
+        animatedCoin.anchor.set(0.5);
+        animatedCoin.scale.set(0.2);
+        animatedCoin.animationSpeed = 0.5;
+        animatedCoin.loop = true;
+        this.animatedCoinPool.push(animatedCoin);
+      }
+    }
   }
 
   private addEventListeners() {
@@ -65,10 +85,46 @@ export class GameController extends PIXI.Container {
     );
   }
 
+  private playCoinCelebration() {
+    this.coinShowerIntervalId = setInterval(() => {
+      this.coinShooter();
+    }, 20);
+  }
+
+  private coinShooter() {
+    if (this.animatedCoinPool.length > 0) {
+      let coin = this.animatedCoinPool.pop();
+      if (coin) {
+        coin.x = this.getRandomNumberInRange(0, constants.viewport.width);
+        coin.y = 0;
+        coin.play();
+        coin.alpha = 1;
+        this.addChild(coin);
+        gsap.to(coin, {
+          alpha: 0.1,
+          y: constants.viewport.height,
+          duration: 1.2,
+          ease: Linear.easeOut,
+          onCompleteParams: [coin],
+          onComplete: (coin) => {
+            coin.stop();
+            this.removeChild(coin);
+            this.animatedCoinPool.push(coin);
+          },
+        });
+      }
+    }
+  }
+
   private async addWinPresentation() {
     if (this.gameData.totalWinAmount) {
+      this.playCoinCelebration();
       this.disableGameButtons();
       this.showWinPresentation();
+
+      gsap.delayedCall(constants.CELEBRATION.COIN_SHOWER_DURATION, () => {
+        clearInterval(this.coinShowerIntervalId);
+      });
       await this.betPanel.addCountup();
       this.enableGameButtons();
     } else {
@@ -232,5 +288,13 @@ export class GameController extends PIXI.Container {
 
     this.betPanel.updateStopPositionData();
     this.betPanel.showWinDetails();
+  }
+
+  //  -------------       UTILITY METHODS        ---------------------
+
+  private getRandomNumberInRange(start: number, end: number) {
+    let randomInRange = Math.floor(Math.random() * (end - start));
+    let selectedNum = start + randomInRange;
+    return selectedNum;
   }
 }

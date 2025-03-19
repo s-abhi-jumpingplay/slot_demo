@@ -38,7 +38,8 @@ export class Assetloader extends PIXI.Container {
       .add("spin", "../images/spin_button.png")
       .add("pointer", "../images/pointer.png")
       .add("wheelSlice", "../images/wheelSlice.png")
-      .add("wheel_center", "../images/wheel_center.png");
+      .add("wheel_center", "../images/wheel_center.png")
+      .add("coinAnim", "../animations/coin-anim/coin-anim.json");
 
     this.loader.load(this.onLoadComplete.bind(this));
     this.loader.onProgress.add(this.progressUpdate.bind(this));

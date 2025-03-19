@@ -75,7 +75,7 @@ export class MainScreen extends PIXI.Container {
       });
     }
 
-    gsap.delayedCall(2.5, this.onSpinTimerComplete.bind(this));
+    gsap.delayedCall(1.5, this.onSpinTimerComplete.bind(this));
   }
 
   public updateReelsWithNewStop() {
