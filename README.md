@@ -55,6 +55,9 @@ ENV NODE_OPTIONS="--openssl-legacy-provider"
   - Player will not be able to bet in case of insufficient balance and will be notified by "Insufficent balance" message in place of Good Luck! message
   - Once the bet is reduced below the balance, player can place a bet again.
 
+  - Win Celebration
+  - Coin shower rains from top to bottom in case of a line win.
+
 
 - Play it here
     3x3-slot-demo.netlify.app
